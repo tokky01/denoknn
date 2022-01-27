@@ -1,4 +1,4 @@
-import {DistanceFunctions, KnnVector,KnnField} from "./mod.ts"
+import {manhattanDistance, KnnVector,KnnField} from "./mod.ts"
 import {assertEquals} from "https://deno.land/std@0.122.0/testing/asserts.ts";
 
 const dims = ["x", "y"]
@@ -13,10 +13,10 @@ let v3 = new KnnVector(val3, dims)
 let v4 = new KnnVector(val4, dims)
 
 Deno.test(function testManhattanDistance() {
-	const res1 = DistanceFunctions.manhattanDistance(v1, v2)
-	const res2 = DistanceFunctions.manhattanDistance(v3, v4)
-	const res3 = DistanceFunctions.manhattanDistance(v1, v3)
-	const res4 = DistanceFunctions.manhattanDistance(v2, v4)
+	const res1 = manhattanDistance(v1, v2)
+	const res2 = manhattanDistance(v3, v4)
+	const res3 = manhattanDistance(v1, v3)
+	const res4 = manhattanDistance(v2, v4)
 
 	assertEquals(res1, 3)
 	assertEquals(res2, 3)

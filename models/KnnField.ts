@@ -1,5 +1,5 @@
 import KnnVector from "./KnnVector.ts";
-import DistanceFunctions from "./distanceFunctions.ts";
+import {manhattanDistance} from "./distanceFunctions.ts";
 
 export default class KnnField {
 	knnVectors: KnnVector[]
@@ -22,7 +22,7 @@ export default class KnnField {
 		let nearestNeighbour: KnnVector = vector
 		let nearestDistance: number = Infinity
 		this.knnVectors.forEach((value) => {
-			let distance: number = DistanceFunctions.manhattanDistance(vector, value)
+			let distance: number = manhattanDistance(vector, value)
 			if (nearestDistance > distance && vector.id !== value.id) {
 				nearestNeighbour = value
 				nearestDistance = distance
