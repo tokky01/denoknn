@@ -4,7 +4,7 @@ export default class KnnVector {
 	values: DimensionCoordinate[]
 	dimensions: string[]
 	id:string
-	constructor(values: number[], dimensions: string[]) {
+	constructor(values: number[], dimensions: string[]){
 		this.dimensions = dimensions;
 		this.values =[]
 		this.id = crypto.randomUUID()

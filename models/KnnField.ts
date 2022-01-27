@@ -1,28 +1,29 @@
 import KnnVector from "./KnnVector.ts";
-import {manhattanDistance} from "./distanceFunctions.ts";
+import DistanceFunctions from "./distanceFunctions.ts";
 
 export default class KnnField {
-	knnVectors:KnnVector[]
-	dimensions:string[]
+	knnVectors: KnnVector[]
+	dimensions: string[]
 
-	constructor(dimensions:any) {
+	constructor(dimensions: any) {
 		this.dimensions = dimensions
 		this.knnVectors = []
 	}
 
-	addDataVector(knnVector:KnnVector):void{
+	addDataVector(knnVector: KnnVector) {
 		this.knnVectors.push(knnVector)
 	}
-	addDataPoint(dataArray:number[]):void{
-		this.knnVectors.push(new KnnVector(dataArray,this.dimensions))
+
+	addDataPoint(dataArray: number[]) {
+		this.knnVectors.push(new KnnVector(dataArray, this.dimensions))
 	}
 
-	getNearestNeighbour(vector:KnnVector,):KnnVector{
-		let nearestNeighbour:KnnVector
-		let nearestDistance:number = Infinity
-		this.knnVectors.forEach((value)=>{
-			let distance:number = manhattanDistance(vector,value)
-			if(nearestDistance>distance && vector.id !== value.id){
+	getNearestNeighbour(vector: KnnVector,): KnnVector {
+		let nearestNeighbour: KnnVector = vector
+		let nearestDistance: number = Infinity
+		this.knnVectors.forEach((value) => {
+			let distance: number = DistanceFunctions.manhattanDistance(vector, value)
+			if (nearestDistance > distance && vector.id !== value.id) {
 				nearestNeighbour = value
 				nearestDistance = distance
 			}
