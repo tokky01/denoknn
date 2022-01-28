@@ -1,5 +1,6 @@
 import {distf, KnnVector, KnnField} from "./mod.ts"
 import {assertEquals} from "https://deno.land/std@0.122.0/testing/asserts.ts";
+import {hammingDistance} from "./models/distanceFunctions.ts";
 
 const dims = ["x", "y"]
 const val0 = [0, 0]
@@ -31,6 +32,19 @@ Deno.test(function testEuclideanDistance(){
 	const res1 = distf.euclideanDistance(v5, v0)
 	const control = Math.sqrt(2)
 	assertEquals(control,res1)
+})
+
+Deno.test(function testHammingDistance() {
+	const val1 = [1, 2]
+	const val2 = [1, 3]
+	const val3 = [-1, 3]
+	let v1 = new KnnVector(val1, dims)
+	let v2 = new KnnVector(val2, dims)
+	let v3 = new KnnVector(val3, dims)
+
+	assertEquals(1,hammingDistance(v1,v2))
+	assertEquals(Infinity,hammingDistance(v1,v3))
+
 })
 
 Deno.test(function knnFieldTest() {

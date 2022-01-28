@@ -12,4 +12,5 @@ export default class KnnVector {
 			this.values.push(new DimensionCoordinate(dimensions[index],value))
 		})
 	}
+	
 }
