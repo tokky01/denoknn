@@ -10,12 +10,13 @@ const val3 = [-1, -2]
 const val4 = [1, -3]
 const val5 = [1, 1]
 
-let v0 = new KnnVector(val0, dims)
-let v1 = new KnnVector(val1, dims)
-let v2 = new KnnVector(val2, dims)
-let v3 = new KnnVector(val3, dims)
-let v4 = new KnnVector(val4, dims)
-let v5 = new KnnVector(val5, dims)
+const v0 = new KnnVector(val0, dims)
+const v1 = new KnnVector(val1, dims)
+const v2 = new KnnVector(val2, dims)
+const v3 = new KnnVector(val3, dims)
+const v4 = new KnnVector(val4, dims)
+const v5 = new KnnVector(val5, dims)
+
 Deno.test(function testManhattanDistance() {
 	const res1 = distf.manhattanDistance(v1, v2)
 	const res2 = distf.manhattanDistance(v3, v4)
@@ -65,6 +66,22 @@ Deno.test(function knnFieldTest() {
 
 })
 
+Deno.test(function addDataTest() {
+	let knn = new KnnField(dims)
+	let data = [
+		[1,0],
+		[0,4],
+		[1,0],
+		[0,5],
+		[1,1],
+		[1,17],
+	]
+	knn.addData(data)
+
+	assertEquals(true,knn.isValid())
+	assertEquals(6,knn.size())
+
+})
 
 
 

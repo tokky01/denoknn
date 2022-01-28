@@ -18,6 +18,26 @@ export default class KnnField {
 		this.knnVectors.push(new KnnVector(dataArray, this.dimensions))
 	}
 
+	addData(data:number[][]):void{
+		data.forEach((dataPoint :number[])=>{
+			this.addDataPoint(dataPoint)
+		})
+	}
+
+	size():number{
+		return this.knnVectors.length
+	}
+
+	isValid():boolean{
+		let length = this.dimensions.length
+		this.knnVectors.forEach((vector)=>{
+			if(vector.values.length !== length && vector.dimensions.length !== length){
+				return false
+			}
+		})
+		return true
+	}
+
 	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = euclideanDistance): KnnVector {
 		let nearestNeighbour: KnnVector = vector
 		let nearestDistance: number = Infinity
