@@ -1,5 +1,5 @@
-import KnnVector from "./KnnVector.ts";
-import DimensionCoordinate from "./DimensionCoordinate.ts";
+import KnnVector from "./models/KnnVector.ts";
+import DimensionCoordinate from "./models/DimensionCoordinate.ts";
 
 
 export interface DistanceFunction {

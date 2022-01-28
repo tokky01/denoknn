@@ -1,5 +1,5 @@
 import KnnVector from "./KnnVector.ts";
-import {DistanceFunction, euclideanDistance} from "./distanceFunctions.ts";
+import {DistanceFunction, euclideanDistance} from "../distanceFunctions.ts";
 
 export default class KnnField {
 	knnVectors: KnnVector[]
@@ -40,17 +40,21 @@ export default class KnnField {
 		return true
 	}
 
-	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = this.distanceFunction): KnnVector {
+	getNNearestNeighbour(vector: KnnVector,n:number=1,distanceFunction:DistanceFunction = this.distanceFunction): KnnVector[] {
+		let vectorsCopy: Array<KnnVector> = [...this.knnVectors];
 		let nearestNeighbour: KnnVector = vector
-		let nearestDistance: number;
-		nearestDistance = Infinity;
-		this.knnVectors.forEach((value) => {
-			const distance: number = distanceFunction(vector, value)
-			if (nearestDistance > distance && vector.id !== value.id) {
-				nearestNeighbour = value
-				nearestDistance = distance
-			}
+
+		vectorsCopy.sort((vectorA:KnnVector,vectorB:KnnVector)=> {
+			let distA = distanceFunction(vector,vectorA)
+			let distB = distanceFunction(vector,vectorB)
+			return distA - distB
 		})
-		return nearestNeighbour
+
+		return  vectorsCopy.slice(0, n)
 	}
+
+	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = this.distanceFunction): KnnVector{
+		return this.getNNearestNeighbour(vector,1,distanceFunction)[0]
+	}
+
 }

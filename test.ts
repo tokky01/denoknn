@@ -1,6 +1,6 @@
 import {distf, KnnVector, KnnField} from "./mod.ts"
 import {assertEquals} from "https://deno.land/std@0.122.0/testing/asserts.ts";
-import {hammingDistance} from "./models/distanceFunctions.ts";
+import {hammingDistance} from "./src/distanceFunctions.ts";
 
 const dims = ["x", "y"]
 const val0 = [0, 0]
