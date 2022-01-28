@@ -4,10 +4,12 @@ import {DistanceFunction, euclideanDistance} from "./distanceFunctions.ts";
 export default class KnnField {
 	knnVectors: KnnVector[]
 	dimensions: string[]
+	distanceFunction:DistanceFunction
 
-	constructor(dimensions: any) {
+	constructor(dimensions: string[],distanceFunction:DistanceFunction = euclideanDistance) {
 		this.dimensions = dimensions
 		this.knnVectors = []
+		this.distanceFunction = distanceFunction
 	}
 
 	addDataVector(knnVector: KnnVector) {
@@ -38,11 +40,12 @@ export default class KnnField {
 		return true
 	}
 
-	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = euclideanDistance): KnnVector {
+	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = this.distanceFunction): KnnVector {
 		let nearestNeighbour: KnnVector = vector
-		let nearestDistance: number = Infinity
+		let nearestDistance: number;
+		nearestDistance = Infinity;
 		this.knnVectors.forEach((value) => {
-			let distance: number = distanceFunction(vector, value)
+			const distance: number = distanceFunction(vector, value)
 			if (nearestDistance > distance && vector.id !== value.id) {
 				nearestNeighbour = value
 				nearestDistance = distance
