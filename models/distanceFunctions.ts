@@ -1,7 +1,7 @@
 import KnnVector from "./KnnVector.ts";
 
 
-interface DistanceFunction {
+export interface DistanceFunction {
 	(vector1: KnnVector, vector2: KnnVector): number;
 }
 

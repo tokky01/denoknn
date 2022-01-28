@@ -1,5 +1,5 @@
 import KnnVector from "./KnnVector.ts";
-import {manhattanDistance} from "./distanceFunctions.ts";
+import {DistanceFunction, euclideanDistance} from "./distanceFunctions.ts";
 
 export default class KnnField {
 	knnVectors: KnnVector[]
@@ -18,11 +18,11 @@ export default class KnnField {
 		this.knnVectors.push(new KnnVector(dataArray, this.dimensions))
 	}
 
-	getNearestNeighbour(vector: KnnVector,): KnnVector {
+	getNearestNeighbour(vector: KnnVector,distanceFunction:DistanceFunction = euclideanDistance): KnnVector {
 		let nearestNeighbour: KnnVector = vector
 		let nearestDistance: number = Infinity
 		this.knnVectors.forEach((value) => {
-			let distance: number = manhattanDistance(vector, value)
+			let distance: number = distanceFunction(vector, value)
 			if (nearestDistance > distance && vector.id !== value.id) {
 				nearestNeighbour = value
 				nearestDistance = distance

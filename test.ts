@@ -1,4 +1,4 @@
-import {manhattanDistance, KnnVector, KnnField, euclideanDistance} from "./mod.ts"
+import {distf, KnnVector, KnnField} from "./mod.ts"
 import {assertEquals} from "https://deno.land/std@0.122.0/testing/asserts.ts";
 
 const dims = ["x", "y"]
@@ -16,10 +16,10 @@ let v3 = new KnnVector(val3, dims)
 let v4 = new KnnVector(val4, dims)
 let v5 = new KnnVector(val5, dims)
 Deno.test(function testManhattanDistance() {
-	const res1 = manhattanDistance(v1, v2)
-	const res2 = manhattanDistance(v3, v4)
-	const res3 = manhattanDistance(v1, v3)
-	const res4 = manhattanDistance(v2, v4)
+	const res1 = distf.manhattanDistance(v1, v2)
+	const res2 = distf.manhattanDistance(v3, v4)
+	const res3 = distf.manhattanDistance(v1, v3)
+	const res4 = distf.manhattanDistance(v2, v4)
 
 	assertEquals(res1, 3)
 	assertEquals(res2, 3)
@@ -28,9 +28,8 @@ Deno.test(function testManhattanDistance() {
 })
 
 Deno.test(function testEuclideanDistance(){
-	const res1 = euclideanDistance(v5, v0)
+	const res1 = distf.euclideanDistance(v5, v0)
 	const control = Math.sqrt(2)
-
 	assertEquals(control,res1)
 })
 
@@ -41,14 +40,14 @@ Deno.test(function knnFieldTest() {
 	knn.addDataVector(v3)
 	knn.addDataVector(v4)
 
-	assertEquals(v2,knn.getNearestNeighbour(v1))
+	assertEquals(v2,knn.getNearestNeighbour(v1,distf.manhattanDistance))
 
 	knn = new KnnField(dims)
 	knn.addDataPoint(val2)
 	knn.addDataPoint(val3)
 	knn.addDataPoint(val4)
 
-	assertEquals(v2.values,knn.getNearestNeighbour(v1).values)
+	assertEquals(v2.values,knn.getNearestNeighbour(v1,distf.manhattanDistance).values)
 
 })
 
