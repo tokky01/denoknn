@@ -64,6 +64,14 @@ Deno.test(function knnFieldTest() {
 
 	assertEquals(v2.values,knn.getNearestNeighbour(v1,distf.manhattanDistance).values)
 
+	knn = new KnnField(dims)
+	knn.addDataVector(v1)
+	knn.addDataVector(v2)
+	knn.addDataVector(v3)
+	knn.addDataVector(v4)
+
+	assertEquals([v2,v3,v4],knn.getNNearestNeighbour(v1))
+
 })
 
 Deno.test(function addDataTest() {
