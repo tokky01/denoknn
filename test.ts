@@ -1,6 +1,7 @@
-import {distf, KnnVector, KnnField} from "./mod.ts"
+import {distf, KnnVector, KnnField, CsvToKnnField} from "./mod.ts"
 import {assertEquals} from "https://deno.land/std@0.122.0/testing/asserts.ts";
 import {hammingDistance} from "./src/distanceFunctions.ts";
+import test = Deno.test;
 
 const dims = ["x", "y"]
 const val0 = [0, 0]
@@ -89,6 +90,12 @@ Deno.test(function addDataTest() {
 	assertEquals(true,knn.isValid())
 	assertEquals(6,knn.size())
 
+})
+
+Deno.test(async function csvProcessorTest(){
+	let knn = await CsvToKnnField('./testData/test.csv')
+	assertEquals(3,knn.size())
+	assertEquals(true,knn.isValid())
 })
 
 
