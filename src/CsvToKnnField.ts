@@ -21,8 +21,6 @@ function prepArray(array: string[][]):[string[],number[][]] {
 		cords.push(rowArray)
 	})
 	return [headers, cords]
-
-
 }
 
 async function insertCsv(path:string) {
